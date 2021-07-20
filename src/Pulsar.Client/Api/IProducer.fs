@@ -50,6 +50,9 @@ type IProducer<'T> =
     ///     After the transaction commit, it will be made visible to consumer.
     ///     After the transaction abort, it will never be visible to consumer.
     /// </param>
+    /// <param name="clusters">
+    ///     Clusters to replicate the message
+    /// </param>
     abstract member NewMessage:
         value:'T
         * [<Optional; DefaultParameterValue(null:string)>]key:string
@@ -60,6 +63,7 @@ type IProducer<'T> =
         * [<Optional; DefaultParameterValue(null:byte[])>]orderingKey:byte[]
         * [<Optional; DefaultParameterValue(Nullable():Nullable<TimeStamp>)>]eventTime:Nullable<TimeStamp>
         * [<Optional; DefaultParameterValue(null:Transaction)>]txn:Transaction
+        * [<Optional; DefaultParameterValue(null:IEnumerable<string>)>]clusters:IEnumerable<string>
         -> MessageBuilder<'T>
     /// The last sequence id that was published by this producer.
     /// This represent either the automatically assigned

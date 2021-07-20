@@ -376,7 +376,8 @@ type internal PartitionedProducerImpl<'T> private (producerConfig: ProducerConfi
             [<Optional; DefaultParameterValue(null:byte[])>]keyBytes:byte[],
             [<Optional; DefaultParameterValue(null:byte[])>]orderingKey:byte[],
             [<Optional; DefaultParameterValue(Nullable():Nullable<TimeStamp>)>]eventTime:Nullable<TimeStamp>,
-            [<Optional; DefaultParameterValue(null:Transaction)>]txn:Transaction) =
+            [<Optional; DefaultParameterValue(null:Transaction)>]txn:Transaction,
+            ) =
             
             if (txn |> isNull |> not) && producerConfig.SendTimeout > TimeSpan.Zero then
                 raise <| ArgumentException "Only producers disabled sendTimeout are allowed to produce transactional messages"

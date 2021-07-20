@@ -392,6 +392,10 @@ type MessageBuilder<'T> internal (value : 'T, payload: byte[], key : MessageKey 
         MessageBuilder(value, payload, key, properties, ?deliverAt = deliverAt,
                        ?sequenceId = sequenceId, ?orderingKey = orderingKey, ?eventTime = eventTime, ?txn = txn,
                        ?replicationClusters =  Option.ofObj replicationClusters)
+    member this.WithNoReplication () =
+        MessageBuilder(value, payload, key, properties, ?deliverAt = deliverAt,
+                       ?sequenceId = sequenceId, ?orderingKey = orderingKey, ?eventTime = eventTime, ?txn = txn,
+                       ?replicationClusters = ([| "__local__" |] :> IEnumerable<string> |> Option.ofObj))
         
         
 type internal WriterStream = Stream
